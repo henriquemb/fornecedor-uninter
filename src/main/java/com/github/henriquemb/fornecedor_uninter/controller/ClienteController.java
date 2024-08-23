@@ -19,4 +19,10 @@ public class ClienteController {
         model.addAttribute("cliente", new Cliente());
         return new ModelAndView("/cliente/formulario", model);
     }
+
+    @PostMapping
+    public String salva(@ModelAttribute Cliente cliente) {
+        bo.inserir(cliente);
+        return "/cliente/formulario";
+    }
 }
