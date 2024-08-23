@@ -33,6 +33,14 @@ public class ClienteBO implements CRUD<Cliente, Long> {
         dao.atualizar(cliente);
     }
 
+    public void inserirOuAtualizar(Cliente cliente) {
+        if (cliente.getId() == null) {
+            inserir(cliente);
+        } else {
+            atualizar(cliente);
+        }
+    }
+
     @Override
     public void deletar(Long id) {
         dao.deletar(id);

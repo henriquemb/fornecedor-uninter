@@ -22,7 +22,31 @@ public class ClienteController {
 
     @PostMapping
     public String salva(@ModelAttribute Cliente cliente) {
-        bo.inserir(cliente);
-        return "/cliente/formulario";
+        bo.inserirOuAtualizar(cliente);
+        return "redirect:/clientes";
+    }
+
+    @GetMapping
+    public ModelAndView lista(ModelMap model) {
+        model.addAttribute("clientes", bo.buscarTodos());
+        return new ModelAndView("/cliente/lista", model);
+    }
+
+    @GetMapping(value = "/edita/{id}")
+    public ModelAndView edita(@PathVariable Long id, ModelMap model) {
+        model.addAttribute("cliente", bo.buscarPorId(id));
+        return new ModelAndView("/cliente/formulario", model);
+    }
+
+    @GetMapping(value = "/ativa/{id}")
+    public String ativa(@PathVariable Long id) {
+        bo.ativar(id);
+        return "redirect:/clientes";
+    }
+
+    @GetMapping(value = "/inativa/{id}")
+    public String inativa(@PathVariable Long id) {
+        bo.inativar(id);
+        return "redirect:/clientes";
     }
 }
