@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/clientes")
@@ -23,12 +24,19 @@ public class ClienteController {
     }
 
     @PostMapping
-    public String salva(@Valid @ModelAttribute Cliente cliente, BindingResult result) {
+    public String salva(@Valid @ModelAttribute Cliente cliente, BindingResult result, RedirectAttributes attr) {
         if(result.hasErrors()) {
             return "/cliente/formulario";
         }
 
-        bo.inserirOuAtualizar(cliente);
+        if (cliente.getId() == null) {
+            bo.inserir(cliente);
+            attr.addFlashAttribute("feedback", "Cliente cadastrado com sucesso.");
+        } else {
+            bo.atualizar(cliente);
+            attr.addFlashAttribute("feedback", "Cliente atualizado com sucesso.");
+        }
+
         return "redirect:/clientes";
     }
 
@@ -45,14 +53,17 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/ativa/{id}")
-    public String ativa(@PathVariable Long id) {
+    public String ativa(@PathVariable Long id, RedirectAttributes attr) {
         bo.ativar(id);
+        attr.addFlashAttribute("feedback", "Cliente ativado com sucesso.");
+
         return "redirect:/clientes";
     }
 
     @GetMapping(value = "/inativa/{id}")
-    public String inativa(@PathVariable Long id) {
+    public String inativa(@PathVariable Long id, RedirectAttributes attr) {
         bo.inativar(id);
+        attr.addFlashAttribute("feedback", "Cliente desativado com sucesso.");
         return "redirect:/clientes";
     }
 }

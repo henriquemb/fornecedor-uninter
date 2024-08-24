@@ -25,20 +25,20 @@ public class ClienteBO implements CRUD<Cliente, Long> {
 
     @Override
     public void inserir(Cliente cliente) {
+        cliente.setCpf(formatarNumero(cliente.getCpf()));
+        cliente.setCelular(formatarNumero(cliente.getCelular()));
+        cliente.setTelefone(formatarNumero(cliente.getTelefone()));
+
         dao.inserir(cliente);
     }
 
     @Override
     public void atualizar(Cliente cliente) {
+        cliente.setCpf(formatarNumero(cliente.getCpf()));
+        cliente.setCelular(formatarNumero(cliente.getCelular()));
+        cliente.setTelefone(formatarNumero(cliente.getTelefone()));
+        
         dao.atualizar(cliente);
-    }
-
-    public void inserirOuAtualizar(Cliente cliente) {
-        if (cliente.getId() == null) {
-            inserir(cliente);
-        } else {
-            atualizar(cliente);
-        }
     }
 
     @Override
@@ -56,5 +56,9 @@ public class ClienteBO implements CRUD<Cliente, Long> {
         Cliente cliente = buscarPorId(id);
         cliente.setAtivo(true);
         atualizar(cliente);
+    }
+
+    private String formatarNumero(String numero) {
+        return numero.replaceAll("[^0-9]", "");
     }
 }
