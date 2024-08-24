@@ -57,8 +57,13 @@
                         <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Salvar"/>
+                <div class="row">
+                    <div class="col-1 mb-3">
+                        <a th:href="@{/clientes}" class="btn btn-secondary">Voltar</a>
+                    </div>
+                    <div class="col-1 mb-3">
+                        <input class="btn btn-primary" type="submit" value="Salvar"/>
+                    </div>
                 </div>
             </form>
         </div>
