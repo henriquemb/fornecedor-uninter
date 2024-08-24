@@ -14,4 +14,9 @@ public class AplicacaoController {
     public String login() {
         return "login";
     }
+
+    @GetMapping(value = "/logout")
+    public String logout() {
+        return "redirect:/login";
+    }
 }
