@@ -15,10 +15,10 @@
 
     <div class="container">
         <div class="bg-light p-5 rounded">
-            <h1>Clientes</h1>
+            <h1>Fornecedores</h1>
             <hr>
             <div>
-                <a class="btn btn-primary" th:href="@{/clientes/novo}">Novo</a>
+                <a class="btn btn-primary" th:href="@{/fornecedores/novo}">Novo</a>
             </div>
             <hr>
             <div th:if="${!#strings.isEmpty(feedback)}" class="alert alert-success" role="alert">
@@ -27,24 +27,24 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td><b>NOME</b></td>
-                        <td><b>DATA NASCIMENTO</b></td>
-                        <td><b>CPF</b></td>
+                        <td><b>NOME FANTASIA</b></td>
+                        <td><b>RAZÃO SOCIAL</b></td>
+                        <td><b>CNPJ</b></td>
                         <td></td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="cliente : ${clientes}">
-                        <td th:text="${cliente.nome}"></td>
-                        <td th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}"></td>
-                        <td th:text="${cliente.cpf}"></td>
+                    <tr th:each="fornecedor : ${fornecedores}">
+                        <td th:text="${fornecedor.nomeFantasia}"></td>
+                        <td th:text="${fornecedor.razaoSocial}"></td>
+                        <td th:text="${fornecedor.cnpj}"></td>
                         <td>
-                            <a class="btn btn-sm btn-secondary" th:href="@{/clientes/edita/{id}(id=${cliente.id})}">Editar</a>
+                            <a class="btn btn-sm btn-secondary" th:href="@{/fornecedores/edita/{id}(id=${fornecedor.id})}">Editar</a>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-secondary" th:if="${cliente.ativo == false}" th:href="@{/clientes/ativa/{id}(id=${cliente.id})}">Ativar</a>
-                            <a class="btn btn-sm btn-secondary" th:unless="${cliente.ativo == false}" th:href="@{/clientes/inativa/{id}(id=${cliente.id})}">Inativar</a>
+                            <a class="btn btn-sm btn-secondary" th:if="${fornecedor.ativo == false}" th:href="@{/fornecedores/ativa/{id}(id=${fornecedor.id})}">Ativar</a>
+                            <a class="btn btn-sm btn-secondary" th:unless="${fornecedor.ativo == false}" th:href="@{/fornecedores/inativa/{id}(id=${fornecedor.id})}">Inativar</a>
                         </td>
                     </tr>
                 </tbody>

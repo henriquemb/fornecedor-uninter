@@ -3,6 +3,7 @@ package com.github.henriquemb.fornecedor_uninter.bo;
 import com.github.henriquemb.fornecedor_uninter.dao.CRUD;
 import com.github.henriquemb.fornecedor_uninter.dao.ClienteDAO;
 import com.github.henriquemb.fornecedor_uninter.model.Cliente;
+import com.github.henriquemb.fornecedor_uninter.utils.StringFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,18 +26,18 @@ public class ClienteBO implements CRUD<Cliente, Long> {
 
     @Override
     public void inserir(Cliente cliente) {
-        cliente.setCpf(formatarNumero(cliente.getCpf()));
-        cliente.setCelular(formatarNumero(cliente.getCelular()));
-        cliente.setTelefone(formatarNumero(cliente.getTelefone()));
+        cliente.setCpf(StringFormat.formatarNumero(cliente.getCpf()));
+        cliente.setCelular(StringFormat.formatarNumero(cliente.getCelular()));
+        cliente.setTelefone(StringFormat.formatarNumero(cliente.getTelefone()));
 
         dao.inserir(cliente);
     }
 
     @Override
     public void atualizar(Cliente cliente) {
-        cliente.setCpf(formatarNumero(cliente.getCpf()));
-        cliente.setCelular(formatarNumero(cliente.getCelular()));
-        cliente.setTelefone(formatarNumero(cliente.getTelefone()));
+        cliente.setCpf(StringFormat.formatarNumero(cliente.getCpf()));
+        cliente.setCelular(StringFormat.formatarNumero(cliente.getCelular()));
+        cliente.setTelefone(StringFormat.formatarNumero(cliente.getTelefone()));
         
         dao.atualizar(cliente);
     }
@@ -56,9 +57,5 @@ public class ClienteBO implements CRUD<Cliente, Long> {
         Cliente cliente = buscarPorId(id);
         cliente.setAtivo(true);
         atualizar(cliente);
-    }
-
-    private String formatarNumero(String numero) {
-        return numero.replaceAll("[^0-9]", "");
     }
 }
