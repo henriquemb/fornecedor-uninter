@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class FornecedorDAO implements CRUD<Fornecedor, Long>{
+public class FornecedorDAO implements CRUD<Fornecedor, Long> {
     @PersistenceContext
     private EntityManager em;
 
@@ -22,7 +22,7 @@ public class FornecedorDAO implements CRUD<Fornecedor, Long>{
 
     @Override
     public List<Fornecedor> buscarTodos() {
-        Query query = em.createQuery("SELECT c FROM Fornecedor c");
+        Query query = em.createQuery("SELECT f FROM Fornecedor f");
         return (List<Fornecedor>) query.getResultList();
     }
 

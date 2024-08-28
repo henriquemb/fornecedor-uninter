@@ -1,5 +1,6 @@
 package com.github.henriquemb.fornecedor_uninter.model;
 
+import com.github.henriquemb.fornecedor_uninter.model.enums.Sexo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.github.henriquemb.fornecedor_uninter.model;
+package com.github.henriquemb.fornecedor_uninter.model.enums;
 
 public enum Sexo {
     MASCULINO("Masculino"),

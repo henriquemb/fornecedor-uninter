@@ -1,7 +1,7 @@
 package com.github.henriquemb.fornecedor_uninter.bo;
 
 import com.github.henriquemb.fornecedor_uninter.model.Cliente;
-import com.github.henriquemb.fornecedor_uninter.model.Sexo;
+import com.github.henriquemb.fornecedor_uninter.model.enums.Sexo;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
