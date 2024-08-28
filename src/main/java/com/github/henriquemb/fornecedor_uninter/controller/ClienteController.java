@@ -2,6 +2,7 @@ package com.github.henriquemb.fornecedor_uninter.controller;
 
 import com.github.henriquemb.fornecedor_uninter.bo.ClienteBO;
 import com.github.henriquemb.fornecedor_uninter.model.Cliente;
+import com.github.henriquemb.fornecedor_uninter.model.enums.Sexo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class ClienteController {
     @GetMapping(value = "/novo")
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("cliente", new Cliente());
+        model.addAttribute("sexos", Sexo.values());
         return new ModelAndView("/cliente/formulario", model);
     }
 
@@ -49,6 +51,7 @@ public class ClienteController {
     @GetMapping(value = "/edita/{id}")
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         model.addAttribute("cliente", bo.buscarPorId(id));
+        model.addAttribute("sexos", Sexo.values());
         return new ModelAndView("/cliente/formulario", model);
     }
 

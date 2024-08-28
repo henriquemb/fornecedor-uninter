@@ -2,9 +2,11 @@ package com.github.henriquemb.fornecedor_uninter.controller;
 
 import com.github.henriquemb.fornecedor_uninter.bo.ProdutoBO;
 import com.github.henriquemb.fornecedor_uninter.model.Produto;
+import com.github.henriquemb.fornecedor_uninter.model.enums.ProdutoCategoria;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ public class ProdutoController {
     @GetMapping(value = "/novo")
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("produto", new Produto());
+        model.addAttribute("categorias", ProdutoCategoria.values());
         return new ModelAndView("/produto/formulario", model);
     }
 
@@ -49,6 +52,7 @@ public class ProdutoController {
     @GetMapping(value = "/edita/{id}")
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         model.addAttribute("produto", bo.buscarPorId(id));
+        model.addAttribute("categorias", ProdutoCategoria.values());
         return new ModelAndView("/produto/formulario", model);
     }
 
