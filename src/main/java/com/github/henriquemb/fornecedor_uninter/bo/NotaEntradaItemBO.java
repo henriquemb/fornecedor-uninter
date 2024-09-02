@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class NotaEntradaItemBO implements CRUD<NotaEntradaItem, Long> {
@@ -37,5 +38,16 @@ public class NotaEntradaItemBO implements CRUD<NotaEntradaItem, Long> {
     @Override
     public void deletar(Long id) {
         dao.deletar(id);
+    }
+
+    public boolean itemExistente(NotaEntradaItem item) {
+        List<NotaEntradaItem> itens = dao.buscarPorNotaEntradaId(item.getNotaEntrada().getId());
+
+        if (item.getId() == null) {
+            return itens.stream().anyMatch(i -> i.getProduto().getId().equals(item.getProduto().getId()));
+        }
+        else {
+            return itens.stream().anyMatch(i -> !Objects.equals(i.getId(), item.getId()) && i.getProduto().getId().equals(item.getProduto().getId()));
+        }
     }
 }

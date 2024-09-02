@@ -29,7 +29,15 @@ public class NotaEntradaItemController {
 
     @PostMapping
     public String salva(@Valid @ModelAttribute NotaEntradaItem notaEntradaItem, BindingResult result, RedirectAttributes attr, ModelMap model) {
-        if(result.hasErrors()) {
+        if (notaEntradaItem.getProduto().getId() == null) {
+            result.rejectValue("produto", "field.required");
+        }
+
+        if (bo.itemExistente(notaEntradaItem)) {
+            result.rejectValue("produto", "duplicate");
+        }
+
+        if (result.hasErrors()) {
             model.addAttribute("produtos", pbo.buscarTodos());
             return "/nota-entrada-item/formulario";
         }
