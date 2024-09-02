@@ -41,6 +41,14 @@ public class NotaEntrada {
         this.dataHora = dataHora;
     }
 
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
     public float getTotal() {
         return total;
     }

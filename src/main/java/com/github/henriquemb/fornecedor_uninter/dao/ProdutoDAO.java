@@ -2,8 +2,8 @@ package com.github.henriquemb.fornecedor_uninter.dao;
 
 import com.github.henriquemb.fornecedor_uninter.model.Produto;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class ProdutoDAO implements CRUD<Produto, Long> {
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
     @Override
