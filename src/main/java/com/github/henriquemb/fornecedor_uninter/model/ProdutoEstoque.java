@@ -9,7 +9,7 @@ public class ProdutoEstoque {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "produto_id", unique = true)
     private Produto produto;
 
