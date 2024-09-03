@@ -13,6 +13,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -48,16 +51,32 @@ public class SecurityConfiguration  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(
+                                "/api/**"
+                        ).permitAll()
+                )
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(
                         "/nota-entrada",
                         "/nota-saida",
                         "/estoque"
                         ).hasRole("ADMINISTRADOR").anyRequest().authenticated()
                 )
-                .formLogin(formLogin -> formLogin.loginPage("/login").permitAll()
-                )
+                .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())
                 .logout(logout -> logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .permitAll()
+                )
+                .cors(
+                        cors -> cors.configurationSource(request -> {
+                            var corsConfiguration = new CorsConfiguration();
+                            corsConfiguration.setAllowedOrigins(List.of("*"));
+                            corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+                            corsConfiguration.setAllowedHeaders(List.of("*"));
+                            corsConfiguration.setAllowCredentials(true);
+                            return corsConfiguration;
+                        })
+                )
+                .csrf(
+                        csrf -> csrf.ignoringRequestMatchers("/api/**")
                 );
 
         return http.build();

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api/estoque")
+@RestController
+@RequestMapping("/api/estoque")
 public class ProdutoEstoqueRestController {
     @Autowired
     private ProdutoEstoqueBO bo;
@@ -28,6 +29,8 @@ public class ProdutoEstoqueRestController {
 
     @PostMapping
     public ProdutoEstoque inserir(@RequestBody ProdutoEstoque produtoEstoque) {
+        produtoEstoque.setProduto(pbo.buscarPorId(produtoEstoque.getProduto().getId()));
+
         bo.inserir(produtoEstoque);
         return produtoEstoque;
     }
