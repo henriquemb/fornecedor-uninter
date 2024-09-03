@@ -22,14 +22,14 @@ public class NotaEntradaItem {
 
     @Column(nullable = false)
     @NotNull(message = "Quantidade é obrigatória")
-    private Integer quantidade;
+    private int quantidade;
 
     @Column(name = "valor", nullable = false)
     @NotNull(message = "Valor é obrigatório")
-    private Float valor;
+    private float valor;
 
     @Transient
-    private Float total;
+    private float total;
 
     public Long getId() {
         return id;
@@ -55,27 +55,27 @@ public class NotaEntradaItem {
         this.notaEntrada = notaEntrada;
     }
 
-    public Integer getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public Float getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(Float valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 
-    public Float getTotal() {
-        return total;
+    public float getTotal() {
+        return quantidade * valor;
     }
 
-    public void setTotal(Float total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 }

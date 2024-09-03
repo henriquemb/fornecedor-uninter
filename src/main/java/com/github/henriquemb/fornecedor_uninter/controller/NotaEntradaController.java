@@ -2,6 +2,7 @@ package com.github.henriquemb.fornecedor_uninter.controller;
 
 import com.github.henriquemb.fornecedor_uninter.bo.FornecedorBO;
 import com.github.henriquemb.fornecedor_uninter.bo.NotaEntradaBO;
+import com.github.henriquemb.fornecedor_uninter.bo.NotaEntradaItemBO;
 import com.github.henriquemb.fornecedor_uninter.bo.ProdutoBO;
 import com.github.henriquemb.fornecedor_uninter.model.NotaEntrada;
 import com.github.henriquemb.fornecedor_uninter.model.NotaEntradaItem;
@@ -26,6 +27,9 @@ public class NotaEntradaController {
     @Autowired
     private ProdutoBO pbo;
 
+    @Autowired
+    private NotaEntradaItemBO ibo;
+
     @GetMapping(value = "/novo")
     public ModelAndView novo(ModelMap model) {
         model.addAttribute("notaEntrada", new NotaEntrada());
@@ -35,6 +39,10 @@ public class NotaEntradaController {
 
     @PostMapping
     public String salva(@Valid @ModelAttribute NotaEntrada notaEntrada, BindingResult result, RedirectAttributes attr) {
+        if (notaEntrada.getFornecedor().getId() == null) {
+            result.rejectValue("fornecedor", "field.required");
+        }
+
         if(result.hasErrors()) {
             return "/nota-entrada/formulario";
         }
@@ -60,6 +68,8 @@ public class NotaEntradaController {
     public ModelAndView edita(@PathVariable Long id, ModelMap model) {
         model.addAttribute("notaEntrada", bo.buscarPorId(id));
         model.addAttribute("fornecedores", fbo.buscarTodos());
+        model.addAttribute("itens", ibo.buscarPorNotaEntradaId(id));
+
         return new ModelAndView("/nota-entrada/formulario", model);
     }
 

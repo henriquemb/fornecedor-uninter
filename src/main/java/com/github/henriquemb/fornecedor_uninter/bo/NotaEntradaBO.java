@@ -31,7 +31,6 @@ public class NotaEntradaBO implements CRUD<NotaEntrada, Long> {
     @Override
     public void atualizar(NotaEntrada notaEntrada) {
         dao.atualizar(notaEntrada);
-
     }
 
     @Override

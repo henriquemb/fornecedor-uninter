@@ -40,6 +40,10 @@ public class NotaEntradaItemBO implements CRUD<NotaEntradaItem, Long> {
         dao.deletar(id);
     }
 
+    public List<NotaEntradaItem> buscarPorNotaEntradaId(Long id) {
+        return dao.buscarPorNotaEntradaId(id);
+    }
+
     public boolean itemExistente(NotaEntradaItem item) {
         List<NotaEntradaItem> itens = dao.buscarPorNotaEntradaId(item.getNotaEntrada().getId());
 

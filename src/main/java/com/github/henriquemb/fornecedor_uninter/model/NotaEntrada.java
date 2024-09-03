@@ -1,10 +1,12 @@
 package com.github.henriquemb.fornecedor_uninter.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "nota_entrada")
@@ -21,6 +23,9 @@ public class NotaEntrada {
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
+
+    @OneToMany(mappedBy = "notaEntrada", cascade = CascadeType.ALL)
+    private List<NotaEntradaItem> itens;
 
     @Transient
     private float total;
@@ -49,8 +54,19 @@ public class NotaEntrada {
         this.fornecedor = fornecedor;
     }
 
+    public List<NotaEntradaItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<NotaEntradaItem> itens) {
+        this.itens = itens;
+    }
+
     public float getTotal() {
-        return total;
+        if (itens == null)
+            return 0f;
+
+        return itens.stream().map(NotaEntradaItem::getTotal).reduce(0f, Float::sum);
     }
 
     public void setTotal(float total) {

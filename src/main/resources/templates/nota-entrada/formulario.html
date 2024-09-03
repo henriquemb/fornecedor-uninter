@@ -52,12 +52,45 @@
 							<span style="color: red" th:if="${#fields.hasErrors('total')}"
 							      th:errors="*{total}"></span>
 						</div>
+
+						<div th:if="${id != null}">
+							<a class="btn btn-sm btn-success" th:href="@{/nota-entrada/{id}/item(id=${id})}">Adicionar produto</a>
+						</div>
+
+						<div th:if="${id != null}" class="mt-3 mb-3">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<td><b>PRODUTO</b></td>
+										<td><b>QTD</b></td>
+										<td><b>VALOR (R$)</b></td>
+										<td><b>TOTAL (R$)</b></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${itens}">
+										<td th:text="${item.produto.nome}"></td>
+										<td th:text="${item.quantidade}"></td>
+										<td th:text="${#numbers.formatDecimal(item.valor, 0, 'POINT', 2, 'COMMA')}"></td>
+										<td th:text="${#numbers.formatDecimal(item.total, 0, 'POINT', 2, 'COMMA')}"></td>
+										<td>
+											<a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/edita/{id}(id=${item.id})}">Editar</a>
+										</td>
+										<td>
+											<a class="btn btn-sm btn-secondary" th:href="@{/nota-entrada-item/remove/{id}(id=${item.id})}">Remover</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 						<div class="col-12">
 							<input class="btn btn-primary col-12" type="submit" value="Salvar"/>
 						</div>
 					</div>
 				</form>
-				<a class="btn btn-sm btn-success" th:href="@{/nota-entrada/{id}/item(id=${id})}">Adicione um produto</a>
 			</div>
 		</div>
 	</div>
